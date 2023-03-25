@@ -205,87 +205,87 @@ def main():
 ########### Comment this part of code to skip hyperparameter tuning and used pre-tuned values ############
 
 
-    # folds = cross_validation_split(train_data, 5)
+    folds = cross_validation_split(train_data, 5)
 
-    # # Hyperparameter tuning for C
-    # C_List = [0.1,1,10,100]
-    # best_C = -1
-    # best_accu = -1
+    # Hyperparameter tuning for C
+    C_List = [0.1,1,10,100]
+    best_C = -1
+    best_accu = -1
     
-    # print("Hyperparameter tuning for C ....")
-    # for c in C_List:
-    #     accuracy = 0
-    #     print("Testing for C = " + str(c))
-    #     for i in range(5):
-    #         print("Fold "+str(i+1)+"/5")
-    #         train_set = pd.concat(folds[j] for j in range(5) if j!=i)
-    #         X_train_set = train_set.drop('target', axis=1)
-    #         Y_train_set = train_set['target']
-    #         X_validation_set = folds[i].drop('target', axis=1)
-    #         Y_validation_set = folds[i]['target']
-    #         myLinearSVM = SVM(kernel=linear, C=c)
-    #         myLinearSVM.Train(X_train_set.to_numpy(),Y_train_set.to_numpy())
-    #         accuracy += myLinearSVM.Predict(X_validation_set.to_numpy(), Y_validation_set.to_numpy(),False)
-    #     accuracy /= 5
+    print("Hyperparameter tuning for C ....")
+    for c in C_List:
+        accuracy = 0
+        print("Testing for C = " + str(c))
+        for i in range(5):
+            print("Fold "+str(i+1)+"/5")
+            train_set = pd.concat(folds[j] for j in range(5) if j!=i)
+            X_train_set = train_set.drop('target', axis=1)
+            Y_train_set = train_set['target']
+            X_validation_set = folds[i].drop('target', axis=1)
+            Y_validation_set = folds[i]['target']
+            myLinearSVM = SVM(kernel=linear, C=c)
+            myLinearSVM.Train(X_train_set.to_numpy(),Y_train_set.to_numpy())
+            accuracy += myLinearSVM.Predict(X_validation_set.to_numpy(), Y_validation_set.to_numpy(),False)
+        accuracy /= 5
 
-    #     if accuracy > best_accu:
-    #         best_accu = accuracy
-    #         best_C = c
+        if accuracy > best_accu:
+            best_accu = accuracy
+            best_C = c
     
-    # print("Best value of C: "+ str(best_C))
+    print("Best value of C: "+ str(best_C))
 
 
-    # # Hyperparameter tuning for p
-    # P_List = [2,3,4,5]
-    # best_P = -1
-    # best_accu = -1
-    # print("Hyperparameter tuning for P ....")
-    # for p in P_List:
-    #     accuracy = 0
-    #     print("Testing for P = " + str(p))
-    #     for i in range(5):
-    #         print("Fold "+str(i+1)+"/5")
-    #         train_set = pd.concat(folds[j] for j in range(5) if j!=i)
-    #         X_train_set = train_set.drop('target', axis=1)
-    #         Y_train_set = train_set['target']
-    #         X_validation_set = folds[i].drop('target', axis=1)
-    #         Y_validation_set = folds[i]['target']
-    #         myPolynomialSVM = SVM(kernel=polynomial, C=100,  p=p)
-    #         myPolynomialSVM.Train(X_train_set.to_numpy(),Y_train_set.to_numpy())
-    #         accuracy += myPolynomialSVM.Predict(X_validation_set.to_numpy(), Y_validation_set.to_numpy(),False)
-    #     accuracy /= 5
+    # Hyperparameter tuning for p
+    P_List = [2,3,4,5]
+    best_P = -1
+    best_accu = -1
+    print("Hyperparameter tuning for P ....")
+    for p in P_List:
+        accuracy = 0
+        print("Testing for P = " + str(p))
+        for i in range(5):
+            print("Fold "+str(i+1)+"/5")
+            train_set = pd.concat(folds[j] for j in range(5) if j!=i)
+            X_train_set = train_set.drop('target', axis=1)
+            Y_train_set = train_set['target']
+            X_validation_set = folds[i].drop('target', axis=1)
+            Y_validation_set = folds[i]['target']
+            myPolynomialSVM = SVM(kernel=polynomial, C=100,  p=p)
+            myPolynomialSVM.Train(X_train_set.to_numpy(),Y_train_set.to_numpy())
+            accuracy += myPolynomialSVM.Predict(X_validation_set.to_numpy(), Y_validation_set.to_numpy(),False)
+        accuracy /= 5
 
-    #     if accuracy > best_accu:
-    #         best_accu = accuracy
-    #         best_P = p
+        if accuracy > best_accu:
+            best_accu = accuracy
+            best_P = p
     
-    # print("Best value of P: "+ str(best_P))
+    print("Best value of P: "+ str(best_P))
 
-    # # Hyperparameter tuning for sigma
-    # S_List = [0.1,0.5,2.5,12.5,62.5]
-    # best_S = -1
-    # best_accu = -1
-    # print("Hyperparameter tuning for Sigma....")
-    # for s in S_List:
-    #     accuracy = 0
-    #     print("Testing for s = " + str(s))
-    #     for i in range(5):
-    #         print("Fold "+str(i+1)+"/5")
-    #         train_set = pd.concat(folds[j] for j in range(5) if j!=i)
-    #         X_train_set = train_set.drop('target', axis=1)
-    #         Y_train_set = train_set['target']
-    #         X_validation_set = folds[i].drop('target', axis=1)
-    #         Y_validation_set = folds[i]['target']
-    #         myRBF_SVM = SVM(kernel=rbf, C=100, sigma=s)
-    #         myRBF_SVM.Train(X_train_set.to_numpy(),Y_train_set.to_numpy())
-    #         accuracy += myRBF_SVM.Predict(X_validation_set.to_numpy(), Y_validation_set.to_numpy(),False)
-    #     accuracy /= 5
+    # Hyperparameter tuning for sigma
+    S_List = [0.1,0.5,2.5,12.5,62.5]
+    best_S = -1
+    best_accu = -1
+    print("Hyperparameter tuning for Sigma....")
+    for s in S_List:
+        accuracy = 0
+        print("Testing for s = " + str(s))
+        for i in range(5):
+            print("Fold "+str(i+1)+"/5")
+            train_set = pd.concat(folds[j] for j in range(5) if j!=i)
+            X_train_set = train_set.drop('target', axis=1)
+            Y_train_set = train_set['target']
+            X_validation_set = folds[i].drop('target', axis=1)
+            Y_validation_set = folds[i]['target']
+            myRBF_SVM = SVM(kernel=rbf, C=100, sigma=s)
+            myRBF_SVM.Train(X_train_set.to_numpy(),Y_train_set.to_numpy())
+            accuracy += myRBF_SVM.Predict(X_validation_set.to_numpy(), Y_validation_set.to_numpy(),False)
+        accuracy /= 5
 
-    #     if accuracy > best_accu:
-    #         best_accu = accuracy
-    #         best_S = s
+        if accuracy > best_accu:
+            best_accu = accuracy
+            best_S = s
         
-    # print("Best value of P: "+ str(best_P))
+    print("Best value of P: "+ str(best_P))
 
 ##################################### Hyperparameters tuning ends ####################################            
 
